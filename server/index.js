@@ -1,11 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mc = require( `./controllers/messages_controller` );
+const devmtnSession = require('./middlewares/devmtn-session');
 
 const app = express();
 
 app.use( bodyParser.json() );
 app.use( express.static( `${__dirname}/../build` ) );
+app.use(devmtnSession);
 
 const messagesBaseUrl = "/api/messages";
 app.post( messagesBaseUrl, mc.create );
