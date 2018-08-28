@@ -5,7 +5,7 @@ module.exports = {
   create: ( req, res ) => {
     const { text, time } = req.body;
     messages.push({ id, text, time });
-    res.sessions.user.messages.push(id, text, time)
+    req.session.user.messages.push({ id, text, time });
     id++;
     res.status(200).send( messages );
   },
@@ -35,7 +35,8 @@ module.exports = {
     messages.splice(messageIndex, 1);
     res.status(200).send( messages );
   },
-  history: (req,res) => {
-    res.send(req.sessions.user.messages);
+
+  history: (req, res) => {
+    res.send(req.session.user.messages);
   }
 };
